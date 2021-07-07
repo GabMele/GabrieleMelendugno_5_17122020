@@ -1,31 +1,39 @@
-<html lang="fr">
+ <html lang="fr">
 <head>
     <meta charset="utf-8">
     <meta name="description" content="Projet 5 Orinoco Ecommerce">
  	<meta name="robots" content="all" />
 	<link rel="stylesheet" type="text/css" href="style.css">
-    <title>P5 - Details Produit</title>    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></head>
 </head>
-
 
 <body>
     <div class="page__wrapper">
-        <nav>
-            <a class="nav__link" href="cart.html">Panier</a>
+        <nav class="navbar mb-5 navbar-expand-md navbar-light bg-light">
+            <a class="navbar-brand" href="#">Orinoco</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" href="index.html">Accueil</a>
+                    <a class="nav-item nav-link" href="cart.html">Panier</a>
+                </div>
+            </div>
         </nav>
+        
+
         <header>
-            <h1>Orinoco - Ecommerce</h1>
+            <h2 class="text-center">Orinoco - Ecommerce</h2>
         </header>
 
         <main id="products__wrapper">
             <h2>Détails produit</h2>
-            <div id="product__details">
-
+            <div id="product__details" class="mb-5">
             </div>
-
-            <button id="addToCart" class="">Ajouter au panier</button>
-
+            <button id="addToCart">Ajouter au panier</button>
         </main>
+        
     </div>
 
     <script type="text/javascript" src='js/product.js'></script>

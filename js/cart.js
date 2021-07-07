@@ -3,18 +3,24 @@ const teddies = "http://localhost:3000/api/teddies";
 const cameras = "http://localhost:3000/api/cameras";
 const furniture = "http://localhost:3000/api/furniture";
 
-let panier = JSON.parse(localStorage.getItem('panier'));
-
+//if (localStorage.getItem('panier') != null) {
+  let panier = JSON.parse(localStorage.getItem('panier'));
+  console.table(panier);
+  //alert('DEBUG see panier in console');
+//}
 
 window.onload = getCartItems();
 
 function getCartItems() {
 
+    //   localStorage.clear;
     if (panier === null) {
         panier = [];
     }
     console.table(panier);
+    //alert('DEBUT panier written; see console');
     panier.forEach(element => console.log(element));
+    //alert('DEBUT panier forEach written; see console');
 
     writeItems(panier);
 
@@ -26,24 +32,31 @@ function writeItems(panier) {
         let elt = document.getElementById('cart__list');
 
         var content = "";
+        let totalAmount = 0;
+
         for (let i = 0; i < panier.length; i++) {
 
-            console.log ('DEBUG >>> i : ' + i + ' ||| ' + 'panier[i]._id : ' + panier[i]._id + '==========');
+            console.log ('DEBUG >>> i : ' + i + ' + ' + 'panier[i]._id : ' + panier[i]._id + '<----');
 
-            content += `<div class="products__item">
-                            <figure class="products__figure">
-                                <img src ="` + panier[i].imageUrl + `">
-                                <figcaption>
-                                    <div class="products__title">
-                                        <a href="product.html?id=` + panier[i]._id + `">
-                                            <h2 class="products__name">` + panier[i].name + `</h2>
-                                        </a>
-                                        <p class="products__price">` + panier[i].price + `</p>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </div>`;
-        }
+            totalAmount += panier[i].price ;
+
+            content += `<tr class="cart__item p-4 m-4 bg-white">
+                            <td><img class="cart__itemimg" src="` + panier[i].imageUrl + `"></td>
+                            <td><a href="product.html?id=` + panier[i]._id + `"><h5>` + panier[i].name + `</h5></a></td>
+                            <td></td>
+                            <td><h5>` + panier[i].price + ` €</h5></td>
+                            <td></td>
+                        </tr>`;
+        };
+
+        content += `<tr class="bg-warning">
+        <td></td>
+        <td><h3>TOTAL</h3></td>
+        <td></td>
+        <td><h3>` + totalAmount + `</h3></td>
+        <td></td>
+        </tr>`;
+
 
         elt.innerHTML = content;
         console.log("content after loop: " + content);
@@ -58,31 +71,45 @@ function writeItems(panier) {
 
         })
 
+        document.getElementById('Empty').addEventListener('click',() => {
+
+            alert('DEBUG Empty clicked !!');
+
+            panier = [];
+
+            localStorage.getItem('panier') = [];
+            window.location.reload();
+
+        })   
+
 }
+
+
 
 
 function executeOrder() {
 
-    //alert('DEBUG start function executeOrder');
+    alert('DEBUG start function executeOrder');
 
-    const firstName = document.getElementById('firstName').value
-    const lastName = document.getElementById('lastName').value
-    const address = document.getElementById('address').value
-    const zipcode = document.getElementById('zipcode').value
-    const email = document.getElementById('email').value
-    const city = document.getElementById('city').value
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+    const address = document.getElementById('address').value;
+    const zipcode = document.getElementById('zipcode').value;
+    const email = document.getElementById('email').value;
+    const city = document.getElementById('city').value;
   
-
-    console.log('TEST' + zipcode + ' --- ' + new RegExp('[0-9]').test(zipcode));
-    console.log('TEST lenght' + zipcode.length);
     
+    alert('TEST email: ' + email + '- VALIDE ? ---> ' + new RegExp(`^[^@\s]+@[^@\s]+\.[^@\s]+$`).test(email));
+    //alert('TEST lenght' + email.length);
 
-
-    if (!(
-      firstName.length > 1 && new RegExp('[a-zA-Z]').test(firstName)
+    //alert('before IF');
+ 
+    //     && */ email.length > 3 && new RegExp('[\w]{1,}[\w.-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})').test(email)
+ 
+    if (!(firstName.length > 1 && new RegExp('[a-zA-Z]').test(firstName)
       && lastName.length > 1 && new RegExp('[a-zA-Z]').test(lastName)
-      && email.length > 3 && new RegExp('[\w]{1,}[\w.-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})').test(email)
-      && address.length > 4 && new RegExp('[#.0-9a-zA-Z\s,-]').test(address)
+      && email.length > 5 && new RegExp('^[^@\s]+@[^@\s]+\.[^@\s]+$').test(email)
+      && address.length > 3 && new RegExp('[#.0-9a-zA-Z\s,-]').test(address)
       && zipcode.length >= 4 && zipcode.length <= 5 && new RegExp('[0-9]').test(zipcode)
       && city.length > 1 && new RegExp('[.0-9a-zA-Z\s-]').test(city)
     )) {
@@ -92,30 +119,25 @@ function executeOrder() {
         alert('DEBUG Input datas are valid, go on');
     };
   
- /* ??????????????????????????????????????
+ /* ???
     const panier = Object.values(Cart.products).map((product) => {
       return product._id
     })
  */ 
-    //alert('DEBUG go on with JSON parse');
-
-    // QUESTION: Can I make PANIER global to avoid to load once again ??????????
-/*    let panier = JSON.parse(localStorage.getItem('panier'));
-    if (panier === null) {
-        panier = [];
-    }
- */  
+ 
     console.table(panier);
     console.log('SHOW PANIER ELEMENTS :');
     panier.forEach(element => console.log(element));
 
     const productsInCart = [];
+    const totalAmount = 0;
 
     for (let i = 0; i < panier.length; i++) {
 
         console.log ('DEBUG >>> i : ' + i + ' ||| ' + 'panier[i]._id : ' + panier[i]._id + '==========');
 
-        productsInCart[i] = panier[i]._id ;
+        productsInCart[i] = panier[i]._id;
+        totalAmount += panier[i].price;
 
     }
 
@@ -173,8 +195,27 @@ function executeOrder() {
       .then((json) => {
         alert('DEBUG fetch executed !');
         console.log(json);
-  //      localStorage.removeItem('shoppingCart') ????????????????????????????????????????????????????????????????????
-      window.location.href = 'confirmation.html?orderId=' + json.orderId;
+      
+  //---------------------------
+
+ //   let order = JSON.parse(localStorage.getItem('order'));
+ //   if (order === null) {
+        let order = {};
+
+// ??????????????????? how to clear order in localstorage ???????????????????
+
+//    }
+    order.push({
+        orderId: json.orderId, firstName: firstName, totalAmount: totalAmount
+    })
+    localStorage.setItem('order',JSON.stringify(order));
+    alert('Commande ajoutée !');
+    document.location.href = 'confirmation.html';
+
+
+  //------------------------------  
+  
+      //window.location.href = 'confirmation.html?orderId=' + json.orderId;
         
       //window.location.href = `confirmation.html?orderId=${json.orderId}`;
       })

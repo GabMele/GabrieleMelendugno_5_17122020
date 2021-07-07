@@ -4,51 +4,84 @@
     <meta name="description" content="Projet 5 Orinoco Ecommerce">
  	<meta name="robots" content="all" />
 	<link rel="stylesheet" type="text/css" href="style.css">
-    <title>Projet 5 - Orinoco</title>    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">    <title>Projet 5 - Orinoco</title>    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  
 </head>
 <body>
-    <div class="page__wrapper">
-        <nav>
-            <a class="nav__link" href="index.html">Accueil</a>
+    <div class="page__wrapper text-center">
+        <nav class="navbar mb-5 navbar-expand-md navbar-light bg-light">
+            <a class="navbar-brand" href="#">Orinoco</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link active" href="index.html">Accueil</a>
+                    <a class="nav-item nav-link">Panier</a>
+                </div>
+            </div>
         </nav>
+
+
         <header>
-            <h1>Orinoco - Cart</h1>
+            <h3 class="text-center">Orinoco - Ecommerce</h3>
         </header>
-   
 
+        <main class="container table-width text-center">
 
-        <main>
+            <h3 class="text-center mb-5">Contenu de votre panier</h3>
 
-            <div id="cart__list"></div>
+            <table class="table-width table-hover">
+                <thead>
+                  <tr class="bg-white border">
+                    <th class="py-2">Photo</th>
+                    <th>Produit</th>
+                    <th>Quantité</th>
+                    <th>Prix unité</th>
+                    <th>Prix total</th>
+                  </tr>
+                </thead>
+                <tbody id="cart__list" class="container bg-light mt-2 pt-2"></tobdy>
+            </table>
             
-            <section class="userdatas">
-                <h2 class="">Passer commande</h2>
-                <form class="form">
-                    <div class="flex flex-col">
-                        <label for="firstName" class="label">Prénom</label>
+
+
+
+            <section class="container get-in-touch text-left my-5 py-5">
+                <h2 class="">Vos coordonnées</h2>
+                <form class="contact-form row">
+
+                    <div class="form-field col-lg-6">
                         <input type="text" class="input" id="firstName" name="firstname" pattern="[a-zA-Z].{1,40}" required/>
+                        <label for="firstName" class="label">Prénom</label>
                     </div>
-                    <div class="flex flex-col">
+
+                    <div class="form-group col-md-6">
                         <label for="lastName" class="label">Nom</label>
                         <input type="text" class="input" id="lastName" name="lastname" pattern="[a-zA-Z].{1,40}" required/>
                     </div>
-                    <div class="flex flex-col col-span-2">
+                    <div class="form-group col-md-6">
                         <label for="email" class="label">E-mail</label>
                         <input type="email" class="input" id="email" ame="email" pattern="^[\w]{1,}[\w.-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$" required/>
                     </div>
-                    <div class="flex flex-col col-span-2">
+                    <div class="form-group col-md-6">
                         <label for="address" class="label">Adresse</label>
                         <input type="text" class="input" id="address" name="address" pattern="^[#.0-9a-zA-Z\s,-]{3,50}" required/>
                     </div>
-                    <div class="flex flex-col">
+                    <div class="form-group col-md-6">
                         <label for="zipcode" class="label">Code postal</label>
                         <input type="text" id="zipcode" pattern="[0-9]{4,5}" class="input" name="zipcode" required/>
                     </div>
-                    <div class="flex flex-col"><label for="city" class="label">Ville</label>
+                    <div class="form-group col-md-6">
+                        <label for="city" class="label">Ville</label>
                         <input type="text" class="input" id="city" name="city" pattern="^[.0-9a-zA-Z\s-]{3,50}" required/>
                     </div>
-                    <div class="flex col-span-4">
-                        <input type="submit" id="Payer" value="Payer"/>
+                    <div class="form-group col-md-6">
+                        <input type="submit" id="Empty" value="Vider le panier"/>  
+                        <input type="submit" id="Payer" value="Valider et payer"/>
                     </div>
                 </form>
             </section>

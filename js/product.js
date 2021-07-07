@@ -15,22 +15,19 @@ function loadItem(productUrl) {
         let elt = document.getElementById('product__details');
 
         var content = "";
-        content += `<div class="products__item">
+        content += `<div class="products__item width-600"">
                             <figure class="products__figure">
-                                <img src ="` + product.imageUrl + `">
-                                <figcaption>
-                                    <div class="products__title">
-                                        <a href="product.html?id=` + product._id + `">
-                                            <h2 class="products__name">` + product.name + `</h2>
-                                        </a>
-                                        <p class="products__price">` + product.price + `</p>
+                                <img class="products__img" src="` + product.imageUrl + `">
+                                <figcaption class="pt-1">
+                                    <div class="flex-space-between">    
+                                        <h2>` + product.name + `</h2>
+                                        <h3>` + product.price + ` €</h3>
                                     </div>
-                                    <p class="products__description">` + product.description + `</p>
+                                    <p class="text-left">` + product.description + `</p>
                                 </figcaption>
                             </figure>
-                            <select id="products__options"></select>
-
-                        </div>`;
+                        <select id="products__options"></select>
+                    </div>`;
         elt.innerHTML = content;
 
         let select = document.getElementById('products__options');
@@ -51,7 +48,7 @@ function loadItem(productUrl) {
                 _id: product._id, price: product.price, name: product.name, imageUrl: product.imageUrl
             })
             localStorage.setItem('panier',JSON.stringify(panier));
-            alert('Produit ajouté !');
+            alert('Le produit ' + product.name + ' a été ajouté au panier !');
             document.location.href = 'cart.html';
         })
     })

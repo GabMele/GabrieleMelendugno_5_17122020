@@ -3,60 +3,55 @@ const cameras = "http://localhost:3000/api/cameras";
 const furniture = "http://localhost:3000/api/furniture";
 
 
-function writeItem(orderId) {
+  
+  window.onload = getOrder();
+  
+  function getOrder() {
+
+    if (localStorage.getItem('order') != null) {
+        let order = JSON.parse(localStorage.getItem('order'));
+        console.table(order);
+        alert('DEBUG see order in console');
+
+        order.forEach(element => console.log(element));
+        alert('DEBUT order forEach written; see console');
+        //   localStorage.clear;  
+        writeItem(order);
+
+    } else {
+        alert('Oups ! Commande vide :(');
+    }
+
+  }
+
+
+function writeItem(order) {
 /*    fetch(productUrl)
     .then(function(res) {
         return res.json();
     })
     .then(function(product) {
 */
-        let elt = document.getElementById('orderId');
+
+/*
+    let firstName = order.firstName; 
+    let orderId = order.orderId;
+    let totalAmount = order.totlalAmount;
+
+*/
+
+        let elt = document.getElementById('order');
 
         var content = "";
 
-        content += `<h1>Commande enregistrée !</h1>
-                    <h2>Référence :` + orderId; + `</h2>`;
+        content += `<div class="alert alert-success" role="alert">
+                        <h2>Félicitations, ` + order.firstName + ` ! Commande enregistrée !</h2>
+                        <h3>Code commande : ` + order.orderId + `</h3>
+                        <h3>Montant commande : ` + order.totalAmount + ` €</h3> 
+                    </div>`;
 
         elt.innerHTML = content;
         console.log("content : " + content);
-
-/*        document.getElementById('addToCart').addEventListener('click',() => {
-            let panier = JSON.parse(localStorage.getItem('panier'));
-            if (panier === null) {
-                panier = [];
-            }
-            panier.push({
-                id: product._id, price: product.price, name: product.name, imageUrl: product.imageUrl
-            })
-            localStorage.setItem('panier',JSON.stringify(panier));
-            alert('Produit ajouté !');
-            document.location.href = 'cart.html';
-        })
-    })
-    .catch(function(err) {
-        console.log(err);
-        alert(err);
-        // Une erreur est survenue
-    });
-*/
-}
-
-
-window.onload = getorderId();
-
-function getorderId() {
-    const queryString = window.location.search;
-    console.log('queryString : ' + queryString);
-
-    const urlParameter = new URLSearchParams(queryString);
-    console.log('urlParameter' + urlParameter)
-
-    const orderId = urlParameter.get('orderId');
-    console.log('orderId' + orderId);
-
-    localStorage.clear();
-
-    writeItem(orderId);
 
 }
 
