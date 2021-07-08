@@ -15,9 +15,9 @@ function loadItem(productUrl) {
         let elt = document.getElementById('product__details');
 
         var content = "";
-        content += `<div class="products__item width-600"">
+        content += `<div class="products__item">
                             <figure class="products__figure">
-                                <img class="products__img" src="` + product.imageUrl + `">
+                                <img class="img-fluid w-100" src="` + product.imageUrl + `">
                                 <figcaption class="pt-1">
                                     <div class="flex-space-between">    
                                         <h2>` + product.name + `</h2>

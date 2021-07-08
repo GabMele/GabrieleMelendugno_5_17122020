@@ -8,15 +8,30 @@ const furniture = "http://localhost:3000/api/furniture";
   
   function getOrder() {
 
-    if (localStorage.getItem('order') != null) {
-        let order = JSON.parse(localStorage.getItem('order'));
-        console.table(order);
+    if (localStorage.getItem('orderId') != null) {
+        alert('DEBUG avant json loop');  
+        
+        for (var i = 0; i < localStorage.length; i++){
+            alert(localStorage.getItem(localStorage.key(i)));
+        }
+
+        alert('DEBUG avant json parse');        
+
+        var orderId = localStorage.getItem('orderId');
+
+
+
+        var orderReceipt = JSON.parse(localStorage.getItem('orderReceipt'));
+
+
+        alert('DEBUG apres json parse');
+        console.table(orderReceipt);
         alert('DEBUG see order in console');
 
-        order.forEach(element => console.log(element));
+        //order.forEach(element => console.log(element));
         alert('DEBUT order forEach written; see console');
         //   localStorage.clear;  
-        writeItem(order);
+        writeItem(orderReceipt);
 
     } else {
         alert('Oups ! Commande vide :(');
@@ -25,7 +40,7 @@ const furniture = "http://localhost:3000/api/furniture";
   }
 
 
-function writeItem(order) {
+function writeItem(orderReceipt) {
 /*    fetch(productUrl)
     .then(function(res) {
         return res.json();
@@ -40,14 +55,18 @@ function writeItem(order) {
 
 */
 
-        let elt = document.getElementById('order');
+        let elt = document.getElementById('orderReceipt');
 
         var content = "";
 
-        content += `<div class="alert alert-success" role="alert">
-                        <h2>Félicitations, ` + order.firstName + ` ! Commande enregistrée !</h2>
-                        <h3>Code commande : ` + order.orderId + `</h3>
-                        <h3>Montant commande : ` + order.totalAmount + ` €</h3> 
+        console.table('orderReceipt : ' + orderReceipt);
+        alert('orderReceipt written, see console');
+
+        content += `<div class="container mt-5 p-5 alert alert-success" role="alert">
+                        <h2>Félicitations ` + orderReceipt[0].firstName + `,</h2>
+                        <h3>Votre commande a bien été validée !</h3>
+                        <h5>Code commande : ` + orderReceipt[0].orderId + `</h5>
+                        <h3>Montant commande : ` + orderReceipt[0].totalAmount + ` €</h3> 
                     </div>`;
 
         elt.innerHTML = content;

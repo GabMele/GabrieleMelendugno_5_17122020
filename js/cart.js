@@ -14,8 +14,8 @@ window.onload = getCartItems();
 function getCartItems() {
 
     //   localStorage.clear;
-    if (panier === null) {
-        panier = [];
+    if (panier == null) {       
+      panier = [];
     }
     console.table(panier);
     //alert('DEBUT panier written; see console');
@@ -50,12 +50,12 @@ function writeItems(panier) {
         };
 
         content += `<tr class="bg-warning">
-        <td></td>
-        <td><h3>TOTAL</h3></td>
-        <td></td>
-        <td><h3>` + totalAmount + `</h3></td>
-        <td></td>
-        </tr>`;
+                      <td></td>
+                      <td><h3>TOTAL</h3></td>
+                      <td></td>
+                      <td><h3>` + totalAmount + `</h3></td>
+                      <td></td>
+                    </tr>`;
 
 
         elt.innerHTML = content;
@@ -71,13 +71,14 @@ function writeItems(panier) {
 
         })
 
-        document.getElementById('Empty').addEventListener('click',() => {
+       document.getElementById('Empty').addEventListener('click',() => {
 
             alert('DEBUG Empty clicked !!');
 
             panier = [];
 
-            localStorage.getItem('panier') = [];
+            //localStorage.clear;
+            localStorage.removeItem('panier');
             window.location.reload();
 
         })   
@@ -87,9 +88,22 @@ function writeItems(panier) {
 
 
 
-function executeOrder() {
+function executeOrder(panier) {
 
     alert('DEBUG start function executeOrder');
+
+
+    alert('check panier :' + panier);
+
+    console.log("check PANIER ----------------");
+    console.table(panier);
+
+    if (!(Array.isArray(panier) && panier.length)) {
+      alert('Le panier est vide, vous allez être redigirés sur la page Accueil pour choisir vos produits.');
+      //window.location.reload('index.html');
+      document.location.href = 'index.html';
+      return
+    }
 
     const firstName = document.getElementById('firstName').value;
     const lastName = document.getElementById('lastName').value;
@@ -105,7 +119,8 @@ function executeOrder() {
     //alert('before IF');
  
     //     && */ email.length > 3 && new RegExp('[\w]{1,}[\w.-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})').test(email)
- 
+
+
     if (!(firstName.length > 1 && new RegExp('[a-zA-Z]').test(firstName)
       && lastName.length > 1 && new RegExp('[a-zA-Z]').test(lastName)
       && email.length > 5 && new RegExp('^[^@\s]+@[^@\s]+\.[^@\s]+$').test(email)
@@ -129,8 +144,8 @@ function executeOrder() {
     console.log('SHOW PANIER ELEMENTS :');
     panier.forEach(element => console.log(element));
 
-    const productsInCart = [];
-    const totalAmount = 0;
+    let productsInCart = [];
+    let totalAmount = 0;
 
     for (let i = 0; i < panier.length; i++) {
 
@@ -174,6 +189,8 @@ function executeOrder() {
 
     console.table(requestOptions);
 
+    console.table('requestOptions Table : ');
+
     console.table('requestOptions Table : ' + requestOptions);
 
     alert('DEBUG ready to show Order (see console)');   
@@ -181,9 +198,9 @@ function executeOrder() {
     console.table(order);
     console.log('address : ' + order.contact.address);
 
-    alert("DEBUG show order.contact.address : "  + order.contact.address);
+    //alert("DEBUG show order.contact.address : "  + order.contact.address);
 
-    alert("DEBUG show order.contact (obj.obj) : "  + JSON.stringify(order.contact,null,4));
+    //alert("DEBUG show order.contact (obj.obj) : "  + JSON.stringify(order.contact,null,4));
 
     //alert('DEBUG ready to make apiUrl');
 
@@ -195,20 +212,49 @@ function executeOrder() {
       .then((json) => {
         alert('DEBUG fetch executed !');
         console.log(json);
+
+        alert(JSON.stringify(json, 'json : ', 4));
+
+        console.table('json' + '--------------------------');
+        console.table(json);
+
+        alert('orderId' + json.orderId + ' - firstName: ' + json.contact.firstName + ' - totalAmount' + totalAmount);
+
+        localStorage.removeItem('panier');
+
+        let orderReceipt = [];
+
+        alert ('do let order');
+
+        orderReceipt.push({
+          orderId: json.orderId, firstName: order.contact.firstName, totalAmount: totalAmount
+        })
+
+        alert ('let order OK, order.push OK, set localstorage');
+
+        localStorage.setItem('orderReceipt',JSON.stringify(orderReceipt));
+
+
+        alert ('set objct in localstorage OK');
+
+        localStorage.setItem('orderId', json.orderId); 
+        localStorage.setItem('firstName', order.contact.firstName); 
+        localStorage.setItem('totalAmount',totalAmount); 
+      
       
   //---------------------------
 
  //   let order = JSON.parse(localStorage.getItem('order'));
  //   if (order === null) {
-        let order = {};
+        //let order = {};
 
 // ??????????????????? how to clear order in localstorage ???????????????????
 
 //    }
-    order.push({
-        orderId: json.orderId, firstName: firstName, totalAmount: totalAmount
-    })
-    localStorage.setItem('order',JSON.stringify(order));
+    //order.push({
+       // orderId: json.orderId, firstName: firstName, totalAmount: totalAmount
+   // })
+    localStorage.setItem('orderId',json.orderId);
     alert('Commande ajoutée !');
     document.location.href = 'confirmation.html';
 
@@ -220,7 +266,7 @@ function executeOrder() {
       //window.location.href = `confirmation.html?orderId=${json.orderId}`;
       })
       .catch(() => {
-        alert(error)
+        alert(error => console.error(error))
       })
   }
 

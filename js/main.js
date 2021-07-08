@@ -21,7 +21,7 @@ function loadItems(apiUrl) {
         for (let i = 0; i < products.length; i++) {
             content += `<li class="p-4 m-4 bg-white">
                             <a href="product.html?id=` + products[i]._id + `">
-                                <figure class="products__item text-left">
+                                <figure class="products__itemlist text-left">
                                 <img class="products__img_listing card-img-top" src="` + products[i].imageUrl + `">
                                     <figcaption>
                                         <div class="flex-space-between">    

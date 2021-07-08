@@ -3,34 +3,37 @@
     <meta charset="utf-8">
     <meta name="description" content="Projet 5 Orinoco Ecommerce">
  	<meta name="robots" content="all" />
-	<link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">    <title>Projet 5 - Orinoco</title>    
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">	<link rel="stylesheet" type="text/css" href="style.css">
+     <link rel="stylesheet" type="text/css" href="style.css">
   
 </head>
 <body>
-    <div class="page__wrapper text-center">
-        <nav class="navbar mb-5 navbar-expand-md navbar-light bg-light">
-            <a class="navbar-brand" href="#">Orinoco</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <div class="page__wrapper">
+        <nav class="navbar navbar-expand-sm navbar-light bg-light">
+            <div class="container-fluid">
+              <a class="navbar-brand">Orinoco</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-item nav-link active" href="index.html">Accueil</a>
-                    <a class="nav-item nav-link">Panier</a>
-                </div>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="index.html">Accueil</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="cart.html">Panier</a>
+                  </li>
+                </ul>
+              </div>
             </div>
-        </nav>
+          </nav>
 
 
         <header>
             <h3 class="text-center">Orinoco - Ecommerce</h3>
         </header>
 
-        <main class="container table-width text-center">
+        <main class="container table-width">
 
             <h3 class="text-center mb-5">Contenu de votre panier</h3>
 
@@ -52,8 +55,7 @@
 
             <section class="container get-in-touch text-left my-5 py-5">
                 <h2 class="">Vos coordonnées</h2>
-                <form class="contact-form row">
-
+   <!--             <form class="contact-form row" method="post">
                     <div class="form-field col-lg-6">
                         <input type="text" class="input" id="firstName" name="firstname" pattern="[a-zA-Z].{1,40}" required/>
                         <label for="firstName" class="label">Prénom</label>
@@ -80,15 +82,141 @@
                         <input type="text" class="input" id="city" name="city" pattern="^[.0-9a-zA-Z\s-]{3,50}" required/>
                     </div>
                     <div class="form-group col-md-6">
-                        <input type="submit" id="Empty" value="Vider le panier"/>  
-                        <input type="submit" id="Payer" value="Valider et payer"/>
+                        <input type="button" id="Empty" value="Vider le panier"/>  
+                        <input type="button" id="PayerOLD" value="Valider et payer"/>
                     </div>
                 </form>
             </section>
         </main>
+       
+        -->
+       
+
+      <div class="row ">
+         <!-- <div class="col-lg-7 mx-auto">-->
+            <div class="mx-auto">        
+              <div class="card mt-2 mx-auto p-4 bg-light">
+                  <div class="card-body bg-light">
+                      <div class="container">
+                          <form id="contact-form" role="form" method="post">
+                              <div class="controls">
+                   
+                                <div class="row">
+                                      <div class="col-md-6">
+                                          <div class="form-group"> 
+                                              <label for="firstName">Prénom *</label>
+                                              <input id="firstName" type="text" name="firstName" class="form-control" pattern="[a-zA-Z].{1,40}" placeholder="Entre votre prénom *" required data-error="Indiquez votre prénom">
+                                          </div>
+                                      </div>
+                                      <div class="col-md-6">
+                                          <div class="form-group">
+                                              <label for="lastName">Nom *</label>
+                                              <input id="lastName" type="text" name="lastName" class="form-control" pattern="[a-zA-Z].{1,40}" placeholder="Entrez votre nom *" required data-error="Indiquez votre nom"> 
+                                          </div>
+                                      </div>
+                                  </div>
+      
+                                  <div class="row">
+                                      <div class="col-md-12">
+                                          <div class="form-group">
+                                              <label for="email">Email *</label>
+                                              <input id="email" type="email" name="email" class="form-control" pattern="^[\w]{1,}[\w.-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$" placeholder="Entrez votre email *" required data-error="Valid email is required.">
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                  <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="address">Adresse *</label>
+                                            <input id="address" type="text" name="address" class="form-control" pattern="^[#.0-9a-zA-Z\s,-]{3,50}" placeholder="Entrez votre adresse *" required data-error="Email non valide">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="col-md-6">
+                                      <div class="form-group"> 
+                                          <label for="zipcode">Code postal *</label>
+                                          <input id="zipcode" type="text" name="zipcode" class="form-control" pattern="[0-9]{4,5}" placeholder="Entre votre code postale *" required data-error="Indiquez votre code postal">
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                          <label for="city">Ville *</label>
+                                          <input id="city" type="text" name="city" class="form-control" pattern="^[.0-9a-zA-Z\s-]{3,50}" placeholder="Entrez votre ville *" required data-error="Indiquez votre ville"> 
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-md-4"> <input type="button" id="Empty" class="btn btn-warning mt-4 pt-2 btn-block " value="Vider le panier">
+                                 </div>
+
+                                 <div class="col-md-8"> <input type="button" id="Payer" class="btn btn-success btn-send mt-4 pt-2 btn-block " value="Valider et payer">
+                                 </div>
+                              </div>
+
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+              </div> <!-- /.8 -->
+          </div> <!-- /.row-->
+      </div>
+  </div>
+
+
+
+
+<!--
+        <section class="get-in-touch m-5 p-5">
+          <h1>Vos coordonnées</h1>
+          <form class="contact-form row" method="post">
+             <div class="form-field col-md-4">
+                <input id="firstName" class="input-text js-input" type="text" required>
+                <label class="label" for="firstName">Prénom</label>
+             </div>
+
+             <div class="form-field col-md-4">
+              <input id="lastName" class="input-text js-input" type="text" required>
+              <label class="label" for="lastName">Nom</label>
+           </div>
+
+             <div class="form-field col-md-4 ">
+                <input id="email" class="input-text js-input" type="email" required>
+                <label class="label" for="email">E-mail</label>
+             </div>
+             <div class="form-field col-md-6 ">
+                <input id="address" class="input-text js-input" type="text" required>
+                <label class="label" for="address">Adresse</label>
+             </div>
+              <div class="form-field col-md-2 ">
+                <input id="zipcode" class="input-text js-input" type="text" required>
+                <label class="label" for="zipcode">Code postal</label>
+             </div>
+             <div class="form-field col-md-4">
+                <input id="city" class="input-text js-input" type="text" required>
+                <label class="label" for="city">Ville</label>
+             </div>
+             <div class="form-field col-md-12">
+                <input class="submit-btn" id="Payer" value="Valider et payer">
+             </div>
+          </form>
+       </section>
+
+
+-->
+
+
+
+
+
+
 
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script type="text/javascript" src='js/cart.js'></script>
 
 
