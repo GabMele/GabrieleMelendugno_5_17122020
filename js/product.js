@@ -10,10 +10,8 @@ function loadItem(productUrl) {
     })
     .then(function(product) {
 
-        console.table(product);
-
+        //console.table(product);
         let elt = document.getElementById('product__details');
-
         var content = "";
         content += `<div class="products__item">
                             <figure class="products__figure">
@@ -31,13 +29,11 @@ function loadItem(productUrl) {
         elt.innerHTML = content;
 
         let select = document.getElementById('products__options');
-        console.log(product.colors);
+        //console.log(product.colors);
         for (let i = 0; i<product.colors.length; i++) {
-            console.log(product.colors[i]);
+            //console.log(product.colors[i]);
             select.innerHTML += '<option value="' + product.colors[i] + '">' + product.colors[i] + '</option>';
         }
-
-        console.log("content after loop: " + content);
 
         document.getElementById('addToCart').addEventListener('click',() => {
             let panier = JSON.parse(localStorage.getItem('panier'));
@@ -59,18 +55,17 @@ function loadItem(productUrl) {
     });
 }
 
-
 window.onload = getItem();
 
 function getItem() {
     const queryString = window.location.search;
-    console.log('queryString : ' + queryString);
+    //console.log('queryString : ' + queryString);
 
     const urlParameter = new URLSearchParams(queryString);
-    console.log('urlParameter' + urlParameter)
+    //console.log('urlParameter' + urlParameter)
 
     const id = urlParameter.get('id');
-    console.log('id' + id)
+    //console.log('id' + id)
 
     loadItem(teddies + '/' + id);
 }
