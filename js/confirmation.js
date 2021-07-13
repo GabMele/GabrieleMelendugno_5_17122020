@@ -24,5 +24,6 @@ function writeItem(orderReceipt) {
                     <h3>Montant commande : ` + orderReceipt[0].totalAmount + ` €</h3> 
                 </div>`;
     elt.innerHTML = content;
+    localStorage.removeItem('orderReceipt');
 }
 

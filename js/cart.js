@@ -10,6 +10,18 @@ window.onload = getCartItems();
 function getCartItems() {
     if (panier == null) {       
       panier = [];
+      alert('Panier vide !');
+      let elt = document.getElementById('main');
+      var content = "";
+      content += `<div class="container m-5 p-5">
+                      <h2>Le panier est vide, allez sur la page 
+                        <a href="index.html">Accueil</a> pour ajouter des produits
+                      </h2>
+                  <div>`;
+      alert('elt updated' + elt);
+      elt.innerHTML = content;
+      alert(content);
+      return
     }
     //console.table(panier);
     writeItems(panier);
@@ -157,11 +169,10 @@ function executeOrder(panier) {
         localStorage.setItem('orderReceipt',JSON.stringify(orderReceipt));
         //alert ('set objct in localstorage OK');
 
-        localStorage.setItem('orderId', json.orderId); 
-        localStorage.setItem('firstName', order.contact.firstName); 
-        localStorage.setItem('totalAmount',totalAmount); 
-      
-        //localStorage.setItem('orderId',json.orderId);
+        //localStorage.setItem('orderId', json.orderId); 
+        //localStorage.setItem('firstName', order.contact.firstName); 
+        //localStorage.setItem('totalAmount',totalAmount); 
+
         alert('Commande ajoutée !');
         document.location.href = 'confirmation.html';
 
