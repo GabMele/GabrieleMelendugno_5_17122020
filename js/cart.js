@@ -3,28 +3,28 @@ const cameras = "http://localhost:3000/api/cameras";
 const furniture = "http://localhost:3000/api/furniture";
 
 let panier = JSON.parse(localStorage.getItem('panier'));
+// we load the cart items stored in localStorage
 //console.table(panier);
 
-window.onload = getCartItems();
+window.onload = checkCart();
 
-function getCartItems() {
+function checkCart() {
+    let mainsection = document.getElementById('main');
+    let emptyCartSection = document.getElementById('empty-cart');
+    // Both divs <emptyCartSection> and <main> are hidden in html using class d-name to prevent->
+    // -> showing them before js rendering;
+    // so we activate one or other div (just removing the d-none class) by the following IF
+
     if (panier == null) {       
-      panier = [];
-      alert('Panier vide !');
-      let elt = document.getElementById('main');
-      var content = "";
-      content += `<div class="container m-5 p-5">
-                      <h2>Le panier est vide, allez sur la page 
-                        <a href="index.html">Accueil</a> pour ajouter des produits
-                      </h2>
-                  <div>`;
-      alert('elt updated' + elt);
-      elt.innerHTML = content;
-      alert(content);
-      return
+        panier = [];
+        alert('Panier vide !');
+        emptyCartSection.className = 'container m-5 p-5 alert-warning';
+
+    } else {
+        // cart is not empty so we can show the div and call the function to output the HTML
+        mainsection.className = 'container width-products-list';
+        writeItems(panier);
     }
-    //console.table(panier);
-    writeItems(panier);
 }
 
 
@@ -33,6 +33,8 @@ function writeItems(panier) {
     let elt = document.getElementById('cart__list');
     var content = "";
     let totalAmount = 0;
+    // totalAmount is the sum of the prices of items in cart:
+    // -> it will be showed at the end of the table and written in localStorage
 
     for (let i = 0; i < panier.length; i++) {
         totalAmount += panier[i].price ;
@@ -75,12 +77,16 @@ function executeOrder(panier) {
     //console.log("check PANIER ----------------");
     //console.table(panier);
 
+    // the following if can check if cart is empty but we already did this control before ->
+    // so the following 5 lines are not used, could be used if any change in js logic will be made
+    /*
     if (!(Array.isArray(panier) && panier.length)) {
       alert('Le panier est vide, vous allez être redigirés sur la page Accueil pour choisir vos produits.');
       //window.location.reload('index.html');
       document.location.href = 'index.html';
       return
     }
+    */
 
     const firstName = document.getElementById('firstName').value;
     const lastName = document.getElementById('lastName').value;
@@ -88,8 +94,6 @@ function executeOrder(panier) {
     const zipcode = document.getElementById('zipcode').value;
     const email = document.getElementById('email').value;
     const city = document.getElementById('city').value;
-    
-    //alert('TEST email: ' + email + '- VALIDE ? ---> ' + new RegExp(`^[^@\s]+@[^@\s]+\.[^@\s]+$`).test(email));
 
     if (!(firstName.length > 1 && new RegExp('[a-zA-Z]').test(firstName)
       && lastName.length > 1 && new RegExp('[a-zA-Z]').test(lastName)
@@ -101,7 +105,8 @@ function executeOrder(panier) {
       alert("Veuillez verifier que les données du formulaire soient correctes");
       return
     } else {
-        //alert('DEBUG Input datas are valid, go on');
+        // input datas are ok so we can go on
+        // alert('DEBUG Input datas are valid, go on');
     };
  
     //console.table(panier);
@@ -111,12 +116,15 @@ function executeOrder(panier) {
     let productsInCart = [];
     let totalAmount = 0;
 
+    // Creation of an array with only the "_id" datas of items in cart, to be sent to the api
     for (let i = 0; i < panier.length; i++) {
         //console.log ('DEBUG >>> i : ' + i + ' ||| ' + 'panier[i]._id : ' + panier[i]._id + '==========');
         productsInCart[i] = panier[i]._id;
         totalAmount += panier[i].price;
     }
 
+    // following object is made by user datas + products (id only) array ->
+    // -> to be sent to the api to execute order
     const order = {
       contact: {
         firstName: firstName,
@@ -158,15 +166,20 @@ function executeOrder(panier) {
         //console.table(json);
         //alert('orderId' + json.orderId + ' - firstName: ' + json.contact.firstName + ' - totalAmount' + totalAmount);
 
+        // since cart items are sent to the api to be processed we can clear the localStorage
         localStorage.removeItem('panier');
         let orderReceipt = [];
+        // we got the orderId from the api, now we will write data in the orderReceipt object
         orderReceipt.push({
           orderId: json.orderId, firstName: order.contact.firstName, totalAmount: totalAmount
         })
 
         //alert ('order.push OK, set localstorage');
 
+        // we store the orderReceipt object in localStorage, but we need to convert it ->
+        // -> in a string since in localStorage we can store only arrays and not objects 
         localStorage.setItem('orderReceipt',JSON.stringify(orderReceipt));
+        
         //alert ('set objct in localstorage OK');
 
         //localStorage.setItem('orderId', json.orderId); 
