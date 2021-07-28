@@ -28,11 +28,16 @@ function loadItem(productUrl) {
                     </div>`;
         elt.innerHTML = content;
 
-        let select = document.getElementById('products__options');
-        //console.log(product.colors);
-        for (let i = 0; i<product.colors.length; i++) {
-            //console.log(product.colors[i]);
-            select.innerHTML += '<option value="' + product.colors[i] + '">' + product.colors[i] + '</option>';
+        //console.table(product);
+
+        if (typeof product.colors != "undefined") {
+
+            let select = document.getElementById('products__options');
+            //console.log(product.colors);
+            for (let i = 0; i<product.colors.length; i++) {
+                //console.log(product.colors[i]);
+                select.innerHTML += '<option value="' + product.colors[i] + '">' + product.colors[i] + '</option>';
+            }
         }
 
         document.getElementById('addToCart').addEventListener('click',() => {

@@ -21,7 +21,7 @@ function writeItems(products) {
     var content = "";
 
     for (let i = 0; i < products.length; i++) {
-        content += `<li class="p-4 m-4 bg-white">
+        content += `<li class="p-4 m-4 shadow bg-white">
                         <a href="product.html?id=` + products[i]._id + `">
                             <figure class="products__itemlist text-left">
                             <img class="card-img-top" src="` + products[i].imageUrl + `">
