@@ -1,1 +1,1 @@
-GabrieleMelendugno_5_17122020
+Création d'un eshop simplifié avec gestion du panier, réalisé en Javascript.
